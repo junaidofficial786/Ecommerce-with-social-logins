@@ -10,7 +10,15 @@ use Laravel\Socialite\Facades\Socialite;
 
 class SocialAuthHandler extends Controller
 {
-    public function handleOAuthCallbacks(string $driver, string $dbSocialColumn)
+    /**
+     * Receives social driver name and dedicated db column name, fetch information of user from social
+     * account and stores inside database
+     *
+     * @param string $driver
+     * @param string $dbSocialColumn
+     * @return array
+     */
+    public function handleOAuthCallbacks(string $driver, string $dbSocialColumn): array
     {
         try {
             // Retrieve the user's information from social account using Socialite.
