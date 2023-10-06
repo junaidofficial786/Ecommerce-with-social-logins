@@ -3,46 +3,36 @@
 namespace App\Http\Controllers\OAuth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use App\Service\UserService;
-use Exception;
-use Illuminate\Support\Facades\Auth;
+use App\Services\SocialAuthHandler;
+use Illuminate\Http\RedirectResponse;
 use Laravel\Socialite\Facades\Socialite;
-use Illuminate\Support\Str;
 
 class FacebookController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function redirectToFacebook()
+    protected string $driver = 'facebook';
+
+    protected string $dbSocialColumn = 'facebook_id';
+
+    public function __construct(public SocialAuthHandler $socialAuthHandler)
     {
-        return Socialite::driver('facebook')->redirect();
+
     }
 
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * Redirect the user to Facebook for authentication.
      */
-    public function handleFacebookCallback()
+    public function redirectToFacebook(): RedirectResponse
     {
-        try {
-            $user = Socialite::driver('facebook')->user();
-            $socialUser = User::where('facebook_id', $user->id)->first();
-            if ($socialUser) {
-                Auth::login($socialUser);
-                return redirect()->intended('dashboard');
-            } else {
-                $newUser = (new UserService())->createSocialUser($user, 'facebook_id');
-                Auth::login($newUser);
-                return redirect()->intended('dashboard');
-            }
-        } catch (Exception $e) {
-            dd($e->getMessage());
-        }
+        return Socialite::driver($this->driver)->redirect();
+    }
 
+    /**
+     * Handle the callback from Facebook after authentication.
+     */
+    public function handleFacebookCallback(): RedirectResponse
+    {
+        $response = $this->socialAuthHandler->handleOAuthCallbacks($this->driver, $this->dbSocialColumn);
+
+        return $this->conditionalRedirectOrBack($response, true, 'dashboard');
     }
 }

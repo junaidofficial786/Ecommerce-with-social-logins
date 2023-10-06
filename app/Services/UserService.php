@@ -1,17 +1,18 @@
 <?php
-namespace App\Service;
+
+namespace App\Services;
 
 use App\Models\User;
 use Illuminate\Support\Str;
 
-class UserService {
+class UserService
+{
     /**
-     * During social login, this function will retrieve user basic information and 
+     * During social login, this function will retrieve user basic information and
      * will store into database
      *
-     * @param User $user
-     * @param String $socialIdColumn
-     * @return User
+     * @param  User  $user
+     * @param  string  $socialIdColumn
      */
     public function createSocialUser($user, $socialIdColumn): User
     {
@@ -22,8 +23,7 @@ class UserService {
             'password' => bcrypt('12345678'),
             $socialIdColumn => $user->id,
         ];
-        
+
         return User::create($data);
     }
-
 }

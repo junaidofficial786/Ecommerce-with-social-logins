@@ -3,47 +3,36 @@
 namespace App\Http\Controllers\OAuth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use App\Service\UserService;
-use Exception;
+use App\Services\SocialAuthHandler;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function redirectToGoogle()
+    protected string $driver = 'google';
+
+    protected string $dbSocialColumn = 'google_id';
+
+    public function __construct(public SocialAuthHandler $socialAuthHandler)
     {
-        return Socialite::driver('google')->redirect();
+
     }
 
     /**
      * Create a new controller instance.
      *
-
      * @return void
      */
+    public function redirectToGoogle(): RedirectResponse
+    {
+        return Socialite::driver($this->driver)->redirect();
+    }
+
     public function handleGoogleCallback()
     {
-        try {
-            $user = Socialite::driver('google')->user();
-            $socialUser = User::where('google_id', $user->id)->first();
+        $response = $this->socialAuthHandler->handleOAuthCallbacks($this->driver, $this->dbSocialColumn);
 
-            if ($socialUser) {
-                Auth::login($socialUser);
-                return redirect()->intended('dashboard');
-            } else {
-                $newUser = (new UserService())->createSocialUser($user, 'google_id');
-                Auth::login($newUser);
-                return redirect()->intended('dashboard');
-            }
-        } catch (Exception $e) {
-            dd($e->getMessage());
-        }
+        return $this->conditionalRedirectOrBack($response, true, 'dashboard');
     }
 }
