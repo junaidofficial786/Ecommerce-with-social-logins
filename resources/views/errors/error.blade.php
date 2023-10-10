@@ -29,7 +29,7 @@
         }
     </style>
 @endpush
-<div class="container">
+<div class="container text-center">
     <h1>404</h1>
     <p>Page Not Found</p>
     <p>Sorry, the page you are looking for might be in another dimension.</p>
