@@ -1,5 +1,9 @@
 @extends('layouts.base')
 
+@section('title')
+    Home
+@endsection
+
 @section('content')
 <main id="main">
     <div class="container">
@@ -214,7 +218,7 @@
                 </a>
             </div>
             <div class="wrap-products">
-                <div class="wrap-product-tab tab-style-1">						
+                <div class="wrap-product-tab tab-style-1">
                     <div class="tab-contents">
                         <div class="tab-content-item active" id="digital_1a">
                             <div class="wrap-products slide-carousel owl-carousel style-nav-1 equal-container" data-items="5" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"4"},"1200":{"items":"5"}}' >
@@ -362,7 +366,7 @@
                                 </div>
 
                             </div>
-                        </div>							
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1035,7 +1039,7 @@
                     </div>
                 </div>
             </div>
-        </div>			
+        </div>
 
     </div>
 
