@@ -4,12 +4,6 @@ namespace App\Traits;
 
 trait ResponseHandlerTrait
 {
-    /**
-     * @param array $result
-     * @param bool $redirect
-     * @param string|null $view
-     * @return mixed
-     */
     protected function conditionalRedirectOrBack(array $result, bool $redirect = false, string $view = null): mixed
     {
         if (! $result['status']) {

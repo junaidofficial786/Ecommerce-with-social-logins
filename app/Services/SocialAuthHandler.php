@@ -13,10 +13,6 @@ class SocialAuthHandler extends Controller
     /**
      * Receives social driver name and dedicated db column name, fetch information of user from social
      * account and stores inside database
-     *
-     * @param string $driver
-     * @param string $dbSocialColumn
-     * @return array
      */
     public function handleOAuthCallbacks(string $driver, string $dbSocialColumn): array
     {

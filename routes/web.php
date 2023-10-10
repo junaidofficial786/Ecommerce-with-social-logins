@@ -1,12 +1,12 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OAuth\FacebookController;
 use App\Http\Controllers\OAuth\GoogleController;
 use App\Http\Controllers\OAuth\LinkedinController;
 use App\Http\Controllers\OAuth\TwitterController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
