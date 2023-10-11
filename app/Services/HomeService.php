@@ -9,7 +9,7 @@ class HomeService extends Controller
     public function index(): array
     {
         $this->setStatus(true);
-        $this->setMessage('Welcome !');
+        $this->setMessage('Welcome!');
 
         return $this->response();
     }
