@@ -61,7 +61,7 @@
                                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
 
                                     </fieldset>
-                                    <input type="submit" class="btn btn-sign" value="Register" name="register">
+                                    <input type="submit" class="btn btn-sign btn-block" value="Register" name="register">
                                 </form>
                             </div>
                         </div>
