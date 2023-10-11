@@ -16,7 +16,7 @@ class AuthAdminMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (!auth()->check() || !auth()->user()->type) {
-            return view('admin.login.index');
+            return redirect()->route('admin.login-view');
         }
         return $next($request);
     }

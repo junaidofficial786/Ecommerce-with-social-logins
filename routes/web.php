@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminDashboardController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +70,7 @@ Route::group(['prefix' => '/admin'], function () {
      * admin protected routes
      */
     Route::group(['middleware' => 'auth.admin'], function () {
+        Route::get('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     });
 });
